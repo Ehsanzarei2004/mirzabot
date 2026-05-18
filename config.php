@@ -1,13 +1,12 @@
 <?php
 $request_exec_timeout = null;
 
-// --- اتصال به دیتابیس ریلوای از طریق شبکه عمومی (چون دو پروژه جدا هستند) ---
+// --- اتصال به دیتابیس ریلوای ---
 $dbhost = 'ballast.proxy.rlwy.net:42935'; 
 $dbname = 'railway';
 $usernamedb = 'root';
 $passworddb = 'LDAZSTdTYoqcZqmCrJDXkWDCzYmXxsZO';
 
-// تفکیک آدرس و پورت برای سازگاری کامل با PDO و MySQLi
 $dbhost_name = 'ballast.proxy.rlwy.net';
 $dbport = 42935;
 
@@ -19,10 +18,10 @@ $options = [ PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETC
 $dsn = "mysql:host=$dbhost_name;port=$dbport;dbname=$dbname;charset=utf8mb4";
 try { $pdo = new PDO($dsn, $usernamedb, $passworddb, $options); } catch (\PDOException $e) { error_log("Database connection failed: " . $e->getMessage()); }
 
-// --- مشخصات ربات و ادمین ---
+// --- مشخصات ربات و ادمین با دامنه جدید ---
 $APIKEY = '8896976190:AAHxJEwAELLoPsRB5e4ofwSBbBfasBevpF4';
 $adminnumber = '6854510555';
-$domainhosts = 'botmirzapanel-production.up.railway.app';
+$domainhosts = 'mirzabot-production.up.railway.app';
 $usernamebot = 'Pmoiranbot';
 
 ?>
