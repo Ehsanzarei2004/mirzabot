@@ -24,15 +24,16 @@ try {
     error_log("Database connection failed: " . $e->getMessage()); 
 }
 
-// ساخت خودکار جداول پایه برای جلوگیری از خطای ۵۰۰
+// ساخت تمام جداول مورد نیاز میرزا پنل به صورت خودکار
 try {
-    $pdo->exec("CREATE TABLE IF NOT EXISTS `user` (`id` bigint(20) NOT NULL, `step` varchar(255) DEFAULT 'none', `status` varchar(50) DEFAULT 'user', PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS `user` (`id` bigint(20) NOT NULL, `step` varchar(255) DEFAULT 'none', `status` varchar(50) DEFAULT 'user', `banned` varchar(10) DEFAULT 'false', PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
     $pdo->exec("CREATE TABLE IF NOT EXISTS `setting` (`id` int(11) NOT NULL AUTO_INCREMENT, `keys` varchar(255) DEFAULT NULL, `value` text DEFAULT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS `server` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(255) DEFAULT NULL, `ip` varchar(255) DEFAULT NULL, `password` varchar(255) DEFAULT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 } catch (\PDOException $e) {}
 
 // --- مشخصات ربات و ادمین ---
 $APIKEY = '8896976190:AAHxJEwAELLoPsRB5e4ofwSBbBfasBevpF4';
-$adminnumber = '6854510555';
+$adminnumber = '6854510555'; // 👈 حتماً چک کن این آیدی خودت باشه
 $domainhosts = 'Mirzabot-production.up.railway.app';
 $usernamebot = 'Pmoiranbot';
 ?>
