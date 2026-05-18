@@ -1,18 +1,18 @@
 FROM php:7.4-fpm-alpine
 
-# نصب اکستنشن‌های مورد نیاز دیتابیس و خود وب‌سرور Nginx
+# نصب ابزارها و اکستنشن‌های مورد نیاز دیتابیس و ان‌جیناکس
 RUN docker-php-ext-install mysqli pdo pdo_mysql \
     && apk add --no-cache nginx
 
-# کپی کردن کدهای پروژه به پوشه وب‌سرور
+# کپی کردن کل کدهای پروژه به پوشه استاندارد وب‌سرور
 COPY . /var/www/html/
 
-# تنظیم تنظیمات پایه ان‌جیناکس برای اجرای PHP
+# تنظیمات پیش‌فرض و روان ان‌جیناکس برای اجرای مستقیم فایلهای میرزا پنل
 RUN mkdir -p /run/nginx \
     && echo 'server { \
         listen 80; \
         root /var/www/html; \
-        index index.php index.html; \
+        index index.php index.html install.php; \
         location / { \
             try_files $uri $uri/ /index.php?$query_string; \
         } \
@@ -24,10 +24,11 @@ RUN mkdir -p /run/nginx \
         } \
     }' > /etc/nginx/http.d/default.conf
 
+# تنظیم دسترسی دسترسی فایل‌ها برای جلوگیری از ارورهای دسترسی دیتابیس
+RUN chmod -R 777 /var/www/html
+
 WORKDIR /var/www/html
 
-# پورت پیش‌فرض
 EXPOSE 80
 
-# استارت همزمان PHP-FPM و Nginx
 CMD php-fpm -D && nginx -g "daemon off;"
