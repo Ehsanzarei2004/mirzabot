@@ -10,7 +10,7 @@ RUN a2enmod rewrite
 COPY . /var/www/html/
 
 # تنظیم دسترسی فایل‌ها
-RUN chown -r www-data:www-data /var/www/html/
+RUN chown -R www-data:www-data /var/www/html/
 
 # پورت پیش‌فرض ریلوای
 EXPOSE 80
